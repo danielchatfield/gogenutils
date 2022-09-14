@@ -28,9 +28,25 @@ func JSONFieldName(s string) string {
 	return s
 }
 
+// CamelCase returns the camelCase version of a text string
+func CamelCase(s string) string {
+	return camelAndPascalCase(s, true)
+}
+
 // PascalCase returns the PascalCase version of a text string
 func PascalCase(s string) string {
+	return camelAndPascalCase(s, false)
+}
+
+func camelAndPascalCase(s string, isCamel bool) string {
 	prev := ' '
+
+	// For camel case we initialise the prev to be a non
+	// seperator so the first letter is lowercase
+	if isCamel {
+		prev = '0'
+	}
+
 	s = strings.Map(
 		func(r rune) rune {
 			if isSeparator(prev) {
@@ -42,7 +58,10 @@ func PascalCase(s string) string {
 		},
 		s)
 
-	return strings.Replace(s, " ", "", -1)
+	s = strings.Replace(s, " ", "", -1)
+	s = strings.Replace(s, "_", "", -1)
+
+	return s
 }
 
 // SnakeCase returns the snake_case version of a text string
