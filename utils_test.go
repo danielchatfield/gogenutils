@@ -71,6 +71,10 @@ func TestPascalCase(t *testing.T) {
 			In:  "this is a test",
 			Out: "ThisIsATest",
 		},
+		{
+			In:  "this_is_a_test",
+			Out: "ThisIsATest",
+		},
 	}
 
 	for _, testcase := range testcases {
@@ -78,6 +82,30 @@ func TestPascalCase(t *testing.T) {
 
 		t.Run(name, func(t *testing.T) {
 			assert.Equal(t, testcase.Out, PascalCase(testcase.In))
+		})
+	}
+}
+
+func TestCamelCase(t *testing.T) {
+	var testcases = []struct {
+		In  string
+		Out string
+	}{
+		{
+			In:  "this is a test",
+			Out: "thisIsATest",
+		},
+		{
+			In:  "this_is_a_test",
+			Out: "thisIsATest",
+		},
+	}
+
+	for _, testcase := range testcases {
+		name := testcase.In
+
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, testcase.Out, CamelCase(testcase.In))
 		})
 	}
 }
