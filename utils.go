@@ -39,21 +39,30 @@ func PascalCase(s string) string {
 }
 
 func camelAndPascalCase(s string, isCamel bool) string {
-	prev := ' '
 
-	// For camel case we initialise the prev to be a non
-	// seperator so the first letter is lowercase
-	if isCamel {
-		prev = '0'
-	}
+	var (
+		prev    = ' '
+		isFirst = true
+	)
 
 	s = strings.Map(
 		func(r rune) rune {
-			if isSeparator(prev) {
+			defer func() {
 				prev = r
+			}()
+
+			if isFirst {
+				isFirst = false
+				if isCamel {
+					return unicode.ToLower(r)
+				} else {
+					return unicode.ToTitle(r)
+				}
+			}
+
+			if isSeparator(prev) {
 				return unicode.ToTitle(r)
 			}
-			prev = r
 			return r
 		},
 		s)
