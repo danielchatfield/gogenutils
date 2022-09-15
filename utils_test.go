@@ -75,6 +75,10 @@ func TestPascalCase(t *testing.T) {
 			In:  "this_is_a_test",
 			Out: "ThisIsATest",
 		},
+		{
+			In:  "ThisIsATest",
+			Out: "ThisIsATest",
+		},
 	}
 
 	for _, testcase := range testcases {
@@ -97,6 +101,10 @@ func TestCamelCase(t *testing.T) {
 		},
 		{
 			In:  "this_is_a_test",
+			Out: "thisIsATest",
+		},
+		{
+			In:  "ThisIsATest",
 			Out: "thisIsATest",
 		},
 	}
